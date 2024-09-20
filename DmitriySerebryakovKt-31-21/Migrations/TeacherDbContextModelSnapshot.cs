@@ -130,12 +130,12 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                     b.Property<int>("AcademicDegreeId")
                         .HasColumnType("int4")
                         .HasColumnName("academicdegree_id")
-                        .HasComment("ID ученой степени");
+                        .HasComment("Идентификатор ученой степени");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int4")
                         .HasColumnName("department_id")
-                        .HasComment("ID кафедры");
+                        .HasComment("Идентификатор кафедры");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -161,21 +161,23 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                     b.Property<int>("PositionId")
                         .HasColumnType("int4")
                         .HasColumnName("position_id")
-                        .HasComment("ID должности");
+                        .HasComment("Идентификатор должности");
 
                     b.Property<int>("TeachingLoadId")
                         .HasColumnType("int4")
                         .HasColumnName("teachingload_id")
-                        .HasComment("ID нагрузки");
+                        .HasComment("Идентификатор нагрузки");
 
                     b.HasKey("TeacherId")
                         .HasName("pk_cd_teacher_teacher_id");
 
-                    b.HasIndex("AcademicDegreeId");
+                    b.HasIndex(new[] { "AcademicDegreeId" }, "idx_cd_teacher_fk_academicdegree_id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex(new[] { "DepartmentId" }, "idx_cd_teacher_fk_department_id");
 
-                    b.HasIndex("PositionId");
+                    b.HasIndex(new[] { "PositionId" }, "idx_cd_teacher_fk_position_id");
+
+                    b.HasIndex(new[] { "TeachingLoadId" }, "idx_cd_teacher_fk_teachingload_id");
 
                     b.ToTable("cd_teacher", (string)null);
                 });
@@ -213,19 +215,22 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .WithMany()
                         .HasForeignKey("AcademicDegreeId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_academicdegree_id");
 
                     b.HasOne("DmitriySerebryakovKt_31_21.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_department_id");
 
                     b.HasOne("DmitriySerebryakovKt_31_21.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_position_id");
 
                     b.Navigation("AcademicDegree");
 
@@ -240,7 +245,8 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .WithOne("TeachingLoad")
                         .HasForeignKey("DmitriySerebryakovKt_31_21.Models.TeachingLoad", "TeachingLoadId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_teachingload_id");
                 });
 
             modelBuilder.Entity("DmitriySerebryakovKt_31_21.Models.Teacher", b =>

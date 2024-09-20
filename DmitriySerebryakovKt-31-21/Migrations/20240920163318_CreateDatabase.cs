@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DmitriySerebryakovKt_31_21.Migrations
 {
     /// <inheritdoc />
-    public partial class init_migr : Migration
+    public partial class CreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,28 +59,28 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                     c_teacher_firstname = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Имя преподавателя"),
                     c_teacher_lastname = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Фамилия преподавателя"),
                     c_teacher_middlename = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Отчество преподавателя"),
-                    department_id = table.Column<int>(type: "int4", nullable: false, comment: "ID кафедры"),
-                    position_id = table.Column<int>(type: "int4", nullable: false, comment: "ID должности"),
-                    academicdegree_id = table.Column<int>(type: "int4", nullable: false, comment: "ID ученой степени"),
-                    teachingload_id = table.Column<int>(type: "int4", nullable: false, comment: "ID нагрузки")
+                    department_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор кафедры"),
+                    position_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор должности"),
+                    academicdegree_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор ученой степени"),
+                    teachingload_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор нагрузки")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_cd_teacher_teacher_id", x => x.teacher_id);
                     table.ForeignKey(
-                        name: "FK_cd_teacher_cd_academic_degree_academicdegree_id",
+                        name: "fk_academicdegree_id",
                         column: x => x.academicdegree_id,
                         principalTable: "cd_academic_degree",
                         principalColumn: "academic_degree_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_cd_teacher_cd_department_department_id",
+                        name: "fk_department_id",
                         column: x => x.department_id,
                         principalTable: "cd_department",
                         principalColumn: "department_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_cd_teacher_cd_position_position_id",
+                        name: "fk_position_id",
                         column: x => x.position_id,
                         principalTable: "cd_position",
                         principalColumn: "position_id",
@@ -118,7 +118,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 {
                     table.PrimaryKey("pk_cd_teaching_load_teaching_load_id", x => x.teaching_load_id);
                     table.ForeignKey(
-                        name: "FK_cd_teaching_load_cd_teacher_teaching_load_id",
+                        name: "fk_teachingload_id",
                         column: x => x.teaching_load_id,
                         principalTable: "cd_teacher",
                         principalColumn: "teacher_id",
@@ -131,19 +131,24 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cd_teacher_academicdegree_id",
+                name: "idx_cd_teacher_fk_academicdegree_id",
                 table: "cd_teacher",
                 column: "academicdegree_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cd_teacher_department_id",
+                name: "idx_cd_teacher_fk_department_id",
                 table: "cd_teacher",
                 column: "department_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cd_teacher_position_id",
+                name: "idx_cd_teacher_fk_position_id",
                 table: "cd_teacher",
                 column: "position_id");
+
+            migrationBuilder.CreateIndex(
+                name: "idx_cd_teacher_fk_teachingload_id",
+                table: "cd_teacher",
+                column: "teachingload_id");
         }
 
         /// <inheritdoc />

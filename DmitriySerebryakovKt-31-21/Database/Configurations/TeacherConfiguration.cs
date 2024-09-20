@@ -43,12 +43,15 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.DepartmentId)
                 .HasColumnName("department_id")
                 .HasColumnType(ColumnType.Int)
-                .HasComment("ID кафедры");
+                .HasComment("Идентификатор кафедры");
 
             builder.HasOne(p => p.Department)
                 .WithMany()
                 .HasForeignKey(p => p.DepartmentId)
+                .HasConstraintName("fk_department_id")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(p => p.DepartmentId, $"idx_{TableName}_fk_department_id");
 
             builder.Navigation(p => p.Department)
                 .AutoInclude();
@@ -57,12 +60,15 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.PositionId)
                 .HasColumnName("position_id")
                 .HasColumnType(ColumnType.Int)
-                .HasComment("ID должности");
+                .HasComment("Идентификатор должности");
 
             builder.HasOne(p => p.Position)
                 .WithMany()
                 .HasForeignKey(p => p.PositionId)
+                .HasConstraintName("fk_position_id")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(p => p.PositionId, $"idx_{TableName}_fk_position_id");
 
             builder.Navigation(p => p.Position)
                 .AutoInclude();
@@ -71,12 +77,15 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.AcademicDegreeId)
                 .HasColumnName("academicdegree_id")
                 .HasColumnType(ColumnType.Int)
-                .HasComment("ID ученой степени");
+                .HasComment("Идентификатор ученой степени");
 
             builder.HasOne(p => p.AcademicDegree)
                 .WithMany()
                 .HasForeignKey(p => p.AcademicDegreeId)
+                .HasConstraintName("fk_academicdegree_id")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(p => p.AcademicDegreeId, $"idx_{TableName}_fk_academicdegree_id");
 
             builder.Navigation(p => p.AcademicDegree)
                 .AutoInclude();
@@ -93,12 +102,15 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.TeachingLoadId)
                 .HasColumnName("teachingload_id")
                 .HasColumnType(ColumnType.Int)
-                .HasComment("ID нагрузки");
+                .HasComment("Идентификатор нагрузки");
 
             builder.HasOne(p => p.TeachingLoad)
                 .WithOne()
                 .HasForeignKey<TeachingLoad>(p => p.TeachingLoadId)
+                .HasConstraintName("fk_teachingload_id")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(p => p.TeachingLoadId, $"idx_{TableName}_fk_teachingload_id");
 
             builder.Navigation(p => p.TeachingLoad)
                 .AutoInclude();
