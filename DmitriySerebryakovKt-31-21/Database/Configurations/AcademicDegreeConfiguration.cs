@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DmitriySerebryakovKt_31_21.Models;
+using DmitriySerebryakovKt_31_21.Database.Helpers;
 
 namespace DmitriySerebryakovKt_31_21.Database.Configurations
 {
@@ -22,6 +23,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(ad => ad.AcademicDegreeName)
                 .IsRequired()
                 .HasColumnName("c_academic_degree_name")
+                .HasColumnType(ColumnType.String).HasMaxLength(100)
                 .HasComment("Название академической степени");
 
             builder.ToTable(TableName);

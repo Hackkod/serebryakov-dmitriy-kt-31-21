@@ -17,7 +17,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 {
                     academic_degree_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор академической степени")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    c_academic_degree_name = table.Column<int>(type: "integer", nullable: false, comment: "Название академической степени")
+                    c_academic_degree_name = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Название академической степени")
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                     department_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор кафедры"),
                     position_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор должности"),
                     academicdegree_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор ученой степени"),
-                    teachingload_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор нагрузки")
+                    teachingload_id = table.Column<int>(type: "int4", nullable: true, comment: "Идентификатор нагрузки")
                 },
                 constraints: table =>
                 {

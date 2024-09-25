@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DmitriySerebryakovKt_31_21.Migrations
 {
     [DbContext(typeof(TeacherDbContext))]
-    [Migration("20240920163318_CreateDatabase")]
+    [Migration("20240925063219_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.18")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -35,8 +35,10 @@ namespace DmitriySerebryakovKt_31_21.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AcademicDegreeId"));
 
-                    b.Property<int>("AcademicDegreeName")
-                        .HasColumnType("integer")
+                    b.Property<string>("AcademicDegreeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar")
                         .HasColumnName("c_academic_degree_name")
                         .HasComment("Название академической степени");
 
@@ -166,7 +168,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .HasColumnName("position_id")
                         .HasComment("Идентификатор должности");
 
-                    b.Property<int>("TeachingLoadId")
+                    b.Property<int?>("TeachingLoadId")
                         .HasColumnType("int4")
                         .HasColumnName("teachingload_id")
                         .HasComment("Идентификатор нагрузки");

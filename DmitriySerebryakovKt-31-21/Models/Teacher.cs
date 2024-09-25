@@ -13,7 +13,7 @@
         public int AcademicDegreeId { get; set; }
         public AcademicDegree AcademicDegree { get; set; }
         public List<Discipline> Disciplines { get; set; } = new List<Discipline>();
-        public int TeachingLoadId { get; set; }
+        public int? TeachingLoadId { get; set; }
         public TeachingLoad TeachingLoad { get; set; }
     }
 }

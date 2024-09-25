@@ -93,6 +93,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             // Дисциплины
             builder.HasMany(p => p.Disciplines)
                 .WithOne()
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Navigation(p => p.Disciplines)
@@ -102,6 +103,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.TeachingLoadId)
                 .HasColumnName("teachingload_id")
                 .HasColumnType(ColumnType.Int)
+                .IsRequired(false)
                 .HasComment("Идентификатор нагрузки");
 
             builder.HasOne(p => p.TeachingLoad)
