@@ -14,6 +14,6 @@ namespace DmitriySerebryakovKt_31_21.Models
         }
 
         public int AcademicDegreeId { get; set; }
-        public AcademicDegreeNameTypes AcademicDegreeName { get; }
+        public AcademicDegreeNameTypes AcademicDegreeName { get; set; }
     }
 }

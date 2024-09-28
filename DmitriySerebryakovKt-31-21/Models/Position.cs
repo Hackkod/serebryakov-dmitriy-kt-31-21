@@ -19,6 +19,6 @@ namespace DmitriySerebryakovKt_31_21.Models
             Professor,
         }
         public int PositionId { get; set; }
-        public PositionNameType PositionName { get; }
+        public PositionNameType PositionName { get; set; }
     }
 }
