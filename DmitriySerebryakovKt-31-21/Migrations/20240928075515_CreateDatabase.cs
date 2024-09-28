@@ -54,14 +54,14 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 name: "cd_teacher",
                 columns: table => new
                 {
-                    teacher_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор записи преподавателя")
+                    teacher_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор преподавателя")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     c_teacher_firstname = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Имя преподавателя"),
                     c_teacher_lastname = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Фамилия преподавателя"),
                     c_teacher_middlename = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Отчество преподавателя"),
-                    department_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор кафедры"),
-                    position_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор должности"),
-                    academicdegree_id = table.Column<int>(type: "int4", nullable: false, comment: "Идентификатор ученой степени"),
+                    department_id = table.Column<int>(type: "int4", nullable: true, comment: "Идентификатор кафедры"),
+                    position_id = table.Column<int>(type: "int4", nullable: true, comment: "Идентификатор должности"),
+                    academicdegree_id = table.Column<int>(type: "int4", nullable: true, comment: "Идентификатор ученой степени"),
                     teachingload_id = table.Column<int>(type: "int4", nullable: true, comment: "Идентификатор нагрузки")
                 },
                 constraints: table =>
@@ -94,14 +94,14 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                     discipline_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор дисциплины")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     c_discipline_name = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Название дисциплины"),
-                    TeacherId = table.Column<int>(type: "integer", nullable: true)
+                    teacher_id = table.Column<int>(type: "integer", nullable: true, comment: "Идентификатор преподавателя")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_cd_discipline_discipline_id", x => x.discipline_id);
                     table.ForeignKey(
-                        name: "FK_cd_discipline_cd_teacher_TeacherId",
-                        column: x => x.TeacherId,
+                        name: "fk_teacher_id",
+                        column: x => x.teacher_id,
                         principalTable: "cd_teacher",
                         principalColumn: "teacher_id",
                         onDelete: ReferentialAction.Cascade);
@@ -126,9 +126,9 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_cd_discipline_TeacherId",
+                name: "idx_cd_discipline_fk_teacher_id",
                 table: "cd_discipline",
-                column: "TeacherId");
+                column: "teacher_id");
 
             migrationBuilder.CreateIndex(
                 name: "idx_cd_teacher_fk_academicdegree_id",

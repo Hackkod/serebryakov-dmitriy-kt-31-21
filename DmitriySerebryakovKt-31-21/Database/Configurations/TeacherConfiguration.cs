@@ -11,8 +11,6 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
 
         public void Configure(EntityTypeBuilder<Teacher> builder)
         {
-            builder.ToTable(TableName);
-
             builder
                 .HasKey(p => p.TeacherId)
                 .HasName($"pk_{TableName}_teacher_id");
@@ -20,7 +18,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.TeacherId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("teacher_id")
-                .HasComment("Идентификатор записи преподавателя");
+                .HasComment("Идентификатор преподавателя");
 
             builder.Property(p => p.FirstName)
                 .IsRequired()
@@ -43,6 +41,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.DepartmentId)
                 .HasColumnName("department_id")
                 .HasColumnType(ColumnType.Int)
+                .IsRequired(false)
                 .HasComment("Идентификатор кафедры");
 
             builder.HasOne(p => p.Department)
@@ -60,6 +59,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.PositionId)
                 .HasColumnName("position_id")
                 .HasColumnType(ColumnType.Int)
+                .IsRequired(false)
                 .HasComment("Идентификатор должности");
 
             builder.HasOne(p => p.Position)
@@ -77,6 +77,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(p => p.AcademicDegreeId)
                 .HasColumnName("academicdegree_id")
                 .HasColumnType(ColumnType.Int)
+                .IsRequired(false)
                 .HasComment("Идентификатор ученой степени");
 
             builder.HasOne(p => p.AcademicDegree)

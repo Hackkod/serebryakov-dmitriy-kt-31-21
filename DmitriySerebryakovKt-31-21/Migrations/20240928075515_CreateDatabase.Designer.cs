@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DmitriySerebryakovKt_31_21.Migrations
 {
     [DbContext(typeof(TeacherDbContext))]
-    [Migration("20240927160925_CreateDatabase")]
+    [Migration("20240928075515_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -89,12 +89,14 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .HasComment("Название дисциплины");
 
                     b.Property<int?>("TeacherId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("teacher_id")
+                        .HasComment("Идентификатор преподавателя");
 
                     b.HasKey("DisciplineId")
                         .HasName("pk_cd_discipline_discipline_id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex(new[] { "TeacherId" }, "idx_cd_discipline_fk_teacher_id");
 
                     b.ToTable("cd_discipline", (string)null);
                 });
@@ -128,16 +130,16 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("teacher_id")
-                        .HasComment("Идентификатор записи преподавателя");
+                        .HasComment("Идентификатор преподавателя");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TeacherId"));
 
-                    b.Property<int>("AcademicDegreeId")
+                    b.Property<int?>("AcademicDegreeId")
                         .HasColumnType("int4")
                         .HasColumnName("academicdegree_id")
                         .HasComment("Идентификатор ученой степени");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int4")
                         .HasColumnName("department_id")
                         .HasComment("Идентификатор кафедры");
@@ -163,7 +165,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .HasColumnName("c_teacher_middlename")
                         .HasComment("Отчество преподавателя");
 
-                    b.Property<int>("PositionId")
+                    b.Property<int?>("PositionId")
                         .HasColumnType("int4")
                         .HasColumnName("position_id")
                         .HasComment("Идентификатор должности");
@@ -208,10 +210,13 @@ namespace DmitriySerebryakovKt_31_21.Migrations
 
             modelBuilder.Entity("DmitriySerebryakovKt_31_21.Models.Discipline", b =>
                 {
-                    b.HasOne("DmitriySerebryakovKt_31_21.Models.Teacher", null)
+                    b.HasOne("DmitriySerebryakovKt_31_21.Models.Teacher", "Teacher")
                         .WithMany("Disciplines")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("fk_teacher_id");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("DmitriySerebryakovKt_31_21.Models.Teacher", b =>
@@ -220,21 +225,18 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .WithMany()
                         .HasForeignKey("AcademicDegreeId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_academicdegree_id");
 
                     b.HasOne("DmitriySerebryakovKt_31_21.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_department_id");
 
                     b.HasOne("DmitriySerebryakovKt_31_21.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_position_id");
 
                     b.Navigation("AcademicDegree");
