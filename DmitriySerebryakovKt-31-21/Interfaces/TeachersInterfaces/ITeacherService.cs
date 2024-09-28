@@ -17,9 +17,9 @@ namespace DmitriySerebryakovKt_31_21.Interfaces.TeachersInterfaces
         {
             _dbContext = dbContext;
         }
-        public Task<Teacher[]> GetTeachersByDepartmentAsync(TeacherDepartmentFilter filter, CancellationToken cancellationToken = default)
+        public async Task<Teacher[]> GetTeachersByDepartmentAsync(TeacherDepartmentFilter filter, CancellationToken cancellationToken = default)
         {
-            var teachers = _dbContext.Set<Teacher>().Where(w => w.Department.DepartmentName == filter.DepartmentName).ToArrayAsync(cancellationToken);
+            var teachers = await _dbContext.Set<Teacher>().Where(w => w.Department.DepartmentName == filter.DepartmentName).ToArrayAsync(cancellationToken);
 
             return teachers;
         }

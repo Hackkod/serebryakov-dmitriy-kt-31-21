@@ -1,4 +1,6 @@
-﻿namespace DmitriySerebryakovKt_31_21.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DmitriySerebryakovKt_31_21.Models
 {
     public class Teacher
     {
