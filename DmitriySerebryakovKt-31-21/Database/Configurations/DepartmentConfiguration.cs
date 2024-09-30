@@ -18,13 +18,13 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Property(d => d.DepartmentId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("department_id")
-                .HasComment("Идентификатор отдела");
+                .HasComment("Идентификатор кафедры");
 
             builder.Property(d => d.DepartmentName)
                 .IsRequired()
                 .HasColumnName("c_department_name")
                 .HasColumnType(ColumnType.String).HasMaxLength(100)
-                .HasComment("Название отдела");
+                .HasComment("Название кафедры");
 
             builder.ToTable(TableName);
         }

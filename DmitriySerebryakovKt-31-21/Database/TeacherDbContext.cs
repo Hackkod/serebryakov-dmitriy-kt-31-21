@@ -9,7 +9,7 @@ namespace DmitriySerebryakovKt_31_21.Database
         DbSet<Teacher> Teachers { get; set; }
         DbSet<AcademicDegree> AcademicDegrees { get; set; }
         DbSet<Department> Departments { get; set; }
-        DbSet<Discipline> Disciplines { get; set; }
+        public DbSet<Discipline> Disciplines { get; set; }
         DbSet<Position> Positions { get; set; }
         DbSet<TeachingLoad> TeachingLoads { get; set; }
 
