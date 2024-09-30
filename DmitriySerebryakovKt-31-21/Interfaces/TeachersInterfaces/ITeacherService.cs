@@ -7,6 +7,7 @@ namespace DmitriySerebryakovKt_31_21.Interfaces.TeachersInterfaces
 {
     public interface ITeacherService
     {
+        public Task<Teacher[]> GetTeachersAsync(CancellationToken cancellationToken);
         public Task<Teacher[]> GetTeachersByDepartmentAsync(TeacherDepartmentFilter filter, CancellationToken cancellationToken);
     }
 
@@ -16,6 +17,12 @@ namespace DmitriySerebryakovKt_31_21.Interfaces.TeachersInterfaces
         public TeacherService(TeacherDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+        public async Task<Teacher[]> GetTeachersAsync(CancellationToken cancellationToken = default)
+        {
+            var teachers = await _dbContext.Set<Teacher>().ToArrayAsync(cancellationToken);
+
+            return teachers;
         }
         public async Task<Teacher[]> GetTeachersByDepartmentAsync(TeacherDepartmentFilter filter, CancellationToken cancellationToken = default)
         {

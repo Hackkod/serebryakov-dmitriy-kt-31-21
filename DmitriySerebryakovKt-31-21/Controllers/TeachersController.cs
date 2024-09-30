@@ -18,6 +18,13 @@ namespace DmitriySerebryakovKt_31_21.Controllers
             _teacherService = teacherService;
         }
 
+        [HttpPost("GetTeachers")]
+        public async Task<IActionResult> GetTeachersByDepartmentAsync(CancellationToken cansellationToken = default)
+        {
+            var teachers = await _teacherService.GetTeachersAsync(cansellationToken);
+            return Ok(teachers);
+        }
+
         [HttpPost("GetTeachersByDepartment")]
         public async Task<IActionResult> GetTeachersByDepartmentAsync(TeacherDepartmentFilter filter, CancellationToken cansellationToken = default)
         {

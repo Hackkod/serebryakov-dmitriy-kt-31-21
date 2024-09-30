@@ -91,15 +91,6 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
             builder.Navigation(p => p.AcademicDegree)
                 .AutoInclude();
 
-            // Дисциплины
-            builder.HasMany(p => p.Disciplines)
-                .WithOne()
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Navigation(p => p.Disciplines)
-                .AutoInclude();
-
             // Учебная нагрузка
             builder.Property(p => p.TeachingLoadId)
                 .HasColumnName("teachingload_id")
