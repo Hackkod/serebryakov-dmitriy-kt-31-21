@@ -33,7 +33,7 @@ namespace DmitriySerebryakovKt_31_21.Database.Configurations
                 .HasComment("Идентификатор преподавателя");
 
             builder.HasOne(p => p.Teacher)
-                .WithMany(t => t.Disciplines)
+                .WithMany()
                 .HasForeignKey(p => p.TeacherId)
                 .HasConstraintName("fk_teacher_id")
                 .OnDelete(DeleteBehavior.Cascade);

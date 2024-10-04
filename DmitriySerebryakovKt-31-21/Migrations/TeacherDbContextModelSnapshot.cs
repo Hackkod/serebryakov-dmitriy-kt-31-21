@@ -51,7 +51,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("department_id")
-                        .HasComment("Идентификатор отдела");
+                        .HasComment("Идентификатор кафедры");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DepartmentId"));
 
@@ -60,7 +60,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar")
                         .HasColumnName("c_department_name")
-                        .HasComment("Название отдела");
+                        .HasComment("Название кафедры");
 
                     b.HasKey("DepartmentId")
                         .HasName("pk_cd_department_department_id");
@@ -208,7 +208,7 @@ namespace DmitriySerebryakovKt_31_21.Migrations
             modelBuilder.Entity("DmitriySerebryakovKt_31_21.Models.Discipline", b =>
                 {
                     b.HasOne("DmitriySerebryakovKt_31_21.Models.Teacher", "Teacher")
-                        .WithMany("Disciplines")
+                        .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_teacher_id");
@@ -255,8 +255,6 @@ namespace DmitriySerebryakovKt_31_21.Migrations
 
             modelBuilder.Entity("DmitriySerebryakovKt_31_21.Models.Teacher", b =>
                 {
-                    b.Navigation("Disciplines");
-
                     b.Navigation("TeachingLoad")
                         .IsRequired();
                 });

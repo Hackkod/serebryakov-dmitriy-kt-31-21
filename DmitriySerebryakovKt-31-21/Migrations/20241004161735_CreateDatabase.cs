@@ -28,9 +28,9 @@ namespace DmitriySerebryakovKt_31_21.Migrations
                 name: "cd_department",
                 columns: table => new
                 {
-                    department_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор отдела")
+                    department_id = table.Column<int>(type: "integer", nullable: false, comment: "Идентификатор кафедры")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    c_department_name = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Название отдела")
+                    c_department_name = table.Column<string>(type: "varchar", maxLength: 100, nullable: false, comment: "Название кафедры")
                 },
                 constraints: table =>
                 {

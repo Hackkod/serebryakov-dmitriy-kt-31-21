@@ -44,11 +44,13 @@ namespace DmitriySerebryakovKt_31_21.Interfaces.TeachersInterfaces
         public async Task<Teacher[]> GetTeachersWithTeachingLoadAsync(TeacherDepartmentDisciplineFilter filter, CancellationToken cancellationToken = default)
         {
             var teachers = await _dbContext.Set<Teacher>()
-                .Include(t => t.Disciplines)
                 .Include(t => t.TeachingLoad)
                 .Where(t =>
-                    (string.IsNullOrEmpty(filter.DepartmentName) || t.Department.DepartmentName == filter.DepartmentName) &&
-                    (string.IsNullOrEmpty(filter.DisciplineName) || t.Disciplines.Any(d => d.DisciplineName == filter.DisciplineName)))
+                    (string.IsNullOrEmpty(filter.DepartmentName) || t.Department.DepartmentName.Contains(filter.DepartmentName)) &&
+                    (string.IsNullOrEmpty(filter.DisciplineName) || _dbContext.Set<Discipline>().Any(d => d.TeacherId == t.TeacherId && d.DisciplineName.Contains(filter.DisciplineName))) &&
+                    (string.IsNullOrEmpty(filter.FirstName) || t.FirstName.Contains(filter.FirstName)) &&
+                    (string.IsNullOrEmpty(filter.LastName) || t.LastName.Contains(filter.LastName)) &&
+                    (string.IsNullOrEmpty(filter.MiddleName) || t.MiddleName.Contains(filter.MiddleName)))
                 .ToArrayAsync(cancellationToken);
 
             return teachers;
